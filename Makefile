@@ -1,5 +1,6 @@
 CXX := g++-8
 CXXFLAGS := --std=gnu++17 -g -Wfatal-errors -Wall -Wextra -fvisibility=hidden
+PERF := -fno-omit-frame-pointer -fno-unroll-loops -fno-peel-loops
 
 LINKFLAGS := -L/usr/local/lib -pthread  -lbenchmark -lbenchmark_main -lquadmath
 INC := -I../boost -I/usr/local/include
@@ -8,7 +9,7 @@ INC := -I../boost -I/usr/local/include
 .PHONY: speed.x
 speed.x: bench.cpp
 	rm -f speed.x
-	$(CXX) $(CXXFLAGS) -O3 -march=native -ffast-math -funroll-loops $(INC) $< -o $@ $(LINKFLAGS)
+	$(CXX) $(CXXFLAGS) -O3 -march=native -ffast-math $(INC) $< -o $@ $(LINKFLAGS)
 
 .PHONY: clean
 clean:

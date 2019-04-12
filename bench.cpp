@@ -28,14 +28,15 @@ void BM_WhittakerShannon(benchmark::State& state)
     }
 
     auto ws = boost::math::interpolators::whittaker_shannon(std::move(v), Real(0), Real(1)/Real(32));
+    Real arg = dis(gen);
     for (auto _ : state)
     {
-        benchmark::DoNotOptimize(ws(dis(gen)));
+        benchmark::DoNotOptimize(ws(arg));
     }
     state.SetComplexityN(state.range(0));
 }
 
-BENCHMARK_TEMPLATE(BM_WhittakerShannon, double)->RangeMultiplier(2)->Range(1<<2, 1<<15)->Complexity(benchmark::oN);
+BENCHMARK_TEMPLATE(BM_WhittakerShannon, double)->RangeMultiplier(2)->Range(1<<8, 1<<15)->Complexity(benchmark::oN);
 
 static void UnitStep(benchmark::internal::Benchmark* b) {
   for (int i = 8; i <= 20; ++i)
