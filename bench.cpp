@@ -12,6 +12,23 @@
 #include <boost/math/differentiation/lanczos_smoothing.hpp>
 #include <boost/math/interpolators/whittaker_shannon.hpp>
 #include <boost/math/special_functions/daubechies_scaling.hpp>
+#include <boost/math/special_functions/sin_pi.hpp>
+
+template<class Real>
+void BM_SinPi(benchmark::State& state)
+{
+
+    std::mt19937 gen(323723);
+    std::uniform_real_distribution<Real> dis(-0.95, 0.95);
+
+    for (auto _ : state)
+    {
+        Real arg = dis(gen);
+        benchmark::DoNotOptimize(boost::math::sin_pi(arg));
+    }
+}
+BENCHMARK_TEMPLATE(BM_SinPi, float);
+BENCHMARK_TEMPLATE(BM_SinPi, double);
 
 
 template<class Real>

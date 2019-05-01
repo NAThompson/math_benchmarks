@@ -9,8 +9,8 @@ INC := -I../boost -I/usr/local/include
 .PHONY: speed.x
 speed.x: bench.cpp
 	rm -f speed.x
-	$(CXX) $(CXXFLAGS) -O3 -march=native -ffast-math $(INC) $< -o $@ $(LINKFLAGS)
+	$(CXX) $(CXXFLAGS) -O3 -march=native $(INC) $< -o $@ $(LINKFLAGS)
 
 .PHONY: clean
 clean:
-	rm -rf *.x *.x.dSYM
+	rm -rf *.x *.x.dSYM perf.data perf.data.old
